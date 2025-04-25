@@ -9,7 +9,8 @@ import {
     Radio,
     FormLabel,
     Checkbox,
-    FormGroup
+    FormGroup,
+    Button
 } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom'; // Changed useHistory to useNavigate for React Router v6
@@ -31,7 +32,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
     const [filterState, setFilterState] = useState<FilterState>(() => {
         const params = new URLSearchParams(location.search);
         return {
-            mode: params.get('mode') || 'all',
+            mode: params.get('mode') || '',
             specialties: params.getAll('specialty'),
             sortBy: params.get('sortBy') || ''
         };
@@ -42,8 +43,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
 
         if (filterState.mode != 'all') {
             params.set('mode', filterState.mode) 
-        } 
-
+        }
         
         filterState.specialties.forEach(specialty => {
             params.append('specialty', specialty);
@@ -81,6 +81,14 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
             mode: event.target.value
         }));
     };
+
+    const handleClearFilters = () => {
+        setFilterState({
+            mode: 'all',
+            specialties: [],
+            sortBy: ''
+        });
+    }; 
 
     
     const handleSortChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -138,14 +146,30 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
                     Filters
                 </Typography>
 
-                <Typography variant="subtitle1" sx={{ fontWeight: 500, mb: 1 }}>
+                <Button 
+                        variant="outlined" 
+                        size="small"
+                        onClick={handleClearFilters}
+                        disabled={
+                            filterState.mode === 'all' && 
+                            filterState.specialties.length === 0 && 
+                            filterState.sortBy === ''
+                        }
+                        sx={{
+                            textTransform: 'none',
+                            fontSize: '0.75rem',
+                            padding: '2px 8px'
+                        }}
+                    >
+                        Clear All
+                    </Button>
+
+                <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 1 }}>
                     Specialties
                 </Typography>
 
                 <FormGroup data-testid="filter-header-speciality"
                 sx={{ 
-                    maxHeight: '300px',
-                    overflowY: 'auto',
                     mb: 2,
                     '& .MuiFormControlLabel-root': {
                       mr: 0,
@@ -175,7 +199,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
                     ))}
                 </FormGroup>
 
-                <Typography variant="subtitle1" sx={{ fontWeight: 500, mb: 1 }}>
+                <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 1 }}>
                     Mode of Consultation
                 </Typography>
 

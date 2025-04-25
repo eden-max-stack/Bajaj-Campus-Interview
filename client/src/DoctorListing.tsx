@@ -10,9 +10,9 @@ import {
     CardActionArea,
     CardContent,
     Avatar,
-    Button,
-    Grid
+    Button
 } from '@mui/material';
+import Grid from '@mui/material/Grid'; 
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import FilterPanel, { FilterState } from './components/FilterPanel'; 
 
@@ -99,12 +99,15 @@ const DoctorListing: React.FC = () => {
             result = result.filter(doctor => doctor.id === doctorId);
         }
 
-        if (filters.mode.length > 0) {
+        if (filters.mode) {
             result = result.filter(doctor => {
                 if (filters.mode.includes('video_consult') && doctor.video_consult) return true;
                 if (filters.mode.includes('in_clinic') && doctor.in_clinic) return true;
+                if (filters.mode.includes('all') && doctor.in_clinic && doctor.video_consult) return true;
                 return false;
             });
+        } else {
+            result = result;
         }
 
         if (filters.specialties.length > 0) {
@@ -147,10 +150,10 @@ const DoctorListing: React.FC = () => {
             margin: '0 auto',
             mt: '64px'
           }}>
-            <Grid item xs={12} md={3}>
+            <Grid size={{ xs: 4, md: 3}}>
                 <FilterPanel onFilterChange={handleFilterChange} />
             </Grid>
-            <Grid item xs={12} md={9}>
+            <Grid size={{ xs: 12, md: 9}}>
                 {filteredDoctors.length === 0 ? (
                     <Box sx={{ p: 3, textAlign: 'center' }}>
                         <Typography variant="h5">No doctors found matching your criteria</Typography>
@@ -160,13 +163,14 @@ const DoctorListing: React.FC = () => {
                         sx={{
                             width: '100%',
                             display: 'grid',
-                            gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+                            gridTemplateColumns: 'repeat(auto-fill, minmax(900px, 1fr))',
                             gap: 2,
                             padding: 2,
                         }}
                     >
                         {filteredDoctors.map((doc) => (
                             <Card key={doc.id} sx={{ 
+                                    align: 'left',
                                     display: 'flex', 
                                     flexDirection: 'column', 
                                     height: '100%',
@@ -191,8 +195,8 @@ const DoctorListing: React.FC = () => {
                                         },
                                     }}
                                 >
-                                    <CardContent sx={{ textAlign: 'center' }}>
-                                        <Avatar alt={doc.name} src={doc.photo} sx={{ width: 96, height: 96, mx: 'auto', bgcolor: '#1976d2' }}></Avatar>
+                                    <CardContent sx={{ textAlign: 'left' }}>
+                                        <Avatar alt={doc.name} src={doc.photo} sx={{ width: 96, height: 96, bgcolor: '#1976d2' }}></Avatar>
                                         <Typography data-testid="doctor-name" variant="h5" component="div" sx={{ mt: 2 }}>
                                             {doc.name}
                                         </Typography>
@@ -208,7 +212,7 @@ const DoctorListing: React.FC = () => {
                                         <Typography variant="body2" color="text.secondary">
                                             {doc.clinic.name}
                                         </Typography>
-                                        <Box display="flex" alignItems="center" justifyContent="center" gap={1} sx={{ mt: 1 }}>
+                                        <Box display="flex" alignItems="left" justifyContent="left" gap={1} sx={{ mt: 1 }}>
                                             <LocationOnIcon sx={{ color: "gray" }} /> 
                                             <Typography variant="body2" color="text.secondary">
                                                 {doc.clinic.address.locality}
@@ -216,7 +220,7 @@ const DoctorListing: React.FC = () => {
                                         </Box>
                                     </CardContent>
                                 </CardActionArea>
-                                <Box sx={{ p: 2, display: 'flex', justifyContent: 'center' }}>
+                                <Box sx={{ p: 2, display: 'flex', justifyContent: 'left' }}>
                                 <Button
                                 variant="contained"
                                 color="primary"
