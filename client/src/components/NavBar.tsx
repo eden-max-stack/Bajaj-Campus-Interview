@@ -151,13 +151,19 @@ const NavBar: React.FC = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed">
-        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+      <AppBar position="fixed" sx={{ backgroundColor: '#1976d2', boxShadow: '0 2px 10px rgba(0,0,0,0.1)' }}>
+        <Toolbar sx={{ 
+    display: 'flex', 
+    justifyContent: 'space-between',
+    minHeight: '64px',
+    padding: { xs: '0 16px', sm: '0 24px' }
+  }}>
           <Typography
             variant="h6"
             noWrap
             component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
+            sx={{ display: { xs: 'none', sm: 'block' }, fontWeight: 600,
+            letterSpacing: '0.5px' }}
           >
             DOCTOR LISTING PAGE
           </Typography>

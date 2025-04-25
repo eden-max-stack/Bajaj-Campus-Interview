@@ -6,7 +6,7 @@ import DoctorListing from './DoctorListing';
 
 const App: React.FC = () => {
   return (
-    <div>
+    <div className='main-content'>
       <Router>
       <NavBar/>
       <Routes>

@@ -14,7 +14,7 @@ import {
     Grid
 } from '@mui/material';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import FilterPanel, { FilterState } from './FilterPanel'; 
+import FilterPanel, { FilterState } from './components/FilterPanel'; 
 
 interface Doctor {
     id: string;
@@ -141,7 +141,12 @@ const DoctorListing: React.FC = () => {
     };
 
     return (
-        <Grid container spacing={2}>
+        <Grid container spacing={2} sx={{ 
+            padding: { xs: '16px', md: '24px' },
+            maxWidth: '1600px',
+            margin: '0 auto',
+            mt: '64px'
+          }}>
             <Grid item xs={12} md={3}>
                 <FilterPanel onFilterChange={handleFilterChange} />
             </Grid>
@@ -161,7 +166,18 @@ const DoctorListing: React.FC = () => {
                         }}
                     >
                         {filteredDoctors.map((doc) => (
-                            <Card key={doc.id} sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+                            <Card key={doc.id} sx={{ 
+                                    display: 'flex', 
+                                    flexDirection: 'column', 
+                                    height: '100%',
+                                    borderRadius: '12px',
+                                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                                    transition: 'transform 0.2s, box-shadow 0.2s',
+                                    '&:hover': {
+                                    transform: 'translateY(-4px)',
+                                    boxShadow: '0 6px 16px rgba(0,0,0,0.15)'
+                                    }
+                                }}>
                                 <CardActionArea
                                     onClick={() => setSelectedCard(doc.id)}
                                     data-active={selectedCard === doc.id ? '' : undefined}
@@ -176,7 +192,7 @@ const DoctorListing: React.FC = () => {
                                     }}
                                 >
                                     <CardContent sx={{ textAlign: 'center' }}>
-                                        <Avatar alt={doc.name} src={doc.photo} sx={{ width: 96, height: 96, mx: 'auto' }} />
+                                        <Avatar alt={doc.name} src={doc.photo} sx={{ width: 96, height: 96, mx: 'auto', bgcolor: '#1976d2' }}></Avatar>
                                         <Typography data-testid="doctor-name" variant="h5" component="div" sx={{ mt: 2 }}>
                                             {doc.name}
                                         </Typography>
@@ -201,14 +217,21 @@ const DoctorListing: React.FC = () => {
                                     </CardContent>
                                 </CardActionArea>
                                 <Box sx={{ p: 2, display: 'flex', justifyContent: 'center' }}>
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        onClick={() => handleBookAppointment(doc.id)}
-                                    >
-                                        Book Appointment
-                                    </Button>
-                                </Box>
+                                <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={() => handleBookAppointment(doc.id)}
+                                sx={{
+                                    borderRadius: '8px',
+                                    padding: '8px 24px',
+                                    fontWeight: '600',
+                                    textTransform: 'none',
+                                    fontSize: '16px'
+                                }}
+                                >
+                                Book Appointment
+                                </Button>
+                            </Box>
                             </Card>
                         ))}
                     </Box>

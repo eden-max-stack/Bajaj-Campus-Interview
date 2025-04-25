@@ -91,13 +91,22 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
     };
 
     return (
-        <div>
-            <Box>
-                <Typography>
+        <div style={{ 
+            padding: '8px',
+            backgroundColor: '#fff',
+            borderRadius: '8px',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+            margin: '8px',
+            width: '100%',
+            position: 'relative',
+            alignSelf: 'flex-start'
+          }}>
+            <Box  sx={{ mb: 3 }}>
+                <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
                     Sort By
                 </Typography>
 
-                <FormControl>
+                <FormControl fullWidth>
                     <FormLabel id="demo-radio-buttons-group-label">Sort By</FormLabel>
                     <RadioGroup
                         aria-labelledby="demo-radio-buttons-group-label"
@@ -110,27 +119,40 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
                             value="fees" 
                             control={<Radio />} 
                             label="Price: Low to High" 
+                            sx={{ '& .MuiTypography-root': { fontSize: '14px' } }}
+
                         />
                         <FormControlLabel 
                             data-testid="sort-experience" 
                             value="experience" 
                             control={<Radio />} 
                             label="Experience: Most Experience First" 
+                            sx={{ '& .MuiTypography-root': { fontSize: '14px' } }}
                         />
                     </RadioGroup>
                 </FormControl>
             </Box>
 
-            <Box>
-                <Typography>
+            <Box sx={{ mb: 3 }}>
+                <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
                     Filters
                 </Typography>
 
-                <Typography>
+                <Typography variant="subtitle1" sx={{ fontWeight: 500, mb: 1 }}>
                     Specialties
                 </Typography>
 
-                <FormGroup data-testid="filter-header-speciality">
+                <FormGroup data-testid="filter-header-speciality"
+                sx={{ 
+                    maxHeight: '300px',
+                    overflowY: 'auto',
+                    mb: 2,
+                    '& .MuiFormControlLabel-root': {
+                      mr: 0,
+                      ml: 0,
+                      mb: 0.5
+                    }
+                  }}>
                     {[
                         "General Physician", "Dentist", "Dermatologist", "Paediatrician",
                         "Gynaecologist", "ENT", "Diabetologist", "Cardiologist",
@@ -153,11 +175,11 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
                     ))}
                 </FormGroup>
 
-                <Typography>
+                <Typography variant="subtitle1" sx={{ fontWeight: 500, mb: 1 }}>
                     Mode of Consultation
                 </Typography>
 
-                <FormControl data-testid="filter-header-moc">
+                <FormControl fullWidth data-testid="filter-header-moc">
                     <RadioGroup
                         aria-labelledby="mode-radio-buttons-group"
                         name="mode-radio-group"
@@ -169,17 +191,21 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
                             value="video_consult" 
                             control={<Radio />} 
                             label="Video Consultation" 
+                            sx={{ '& .MuiTypography-root': { fontSize: '14px' } }}
                         />
                         <FormControlLabel 
                             data-testid="filter-in-clinic" 
                             value="in_clinic" 
                             control={<Radio />} 
                             label="In-Clinic Consultation" 
+                            sx={{ '& .MuiTypography-root': { fontSize: '14px' } }}
+
                         />
                         <FormControlLabel 
                             value="all" 
                             control={<Radio />} 
                             label="All" 
+                            sx={{ '& .MuiTypography-root': { fontSize: '14px' } }}
                         />
                     </RadioGroup>
                 </FormControl>
