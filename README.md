@@ -20,7 +20,7 @@ This was made for the hiring process of Bajaj Finserv Summer Internship (Campus 
 
 - **Frontend**: React, TypeScript, Vite
 - **Routing**: `react-router-dom`
-- **Styling**: Tailwind CSS / CSS *(customize this based on your actual usage)*
+- **Styling**: Material UI
 - **Deployment**: GitHub Pages via `gh-pages`
 
 ---
@@ -56,7 +56,7 @@ client/
 2. **Install dependencies**
    ```bash
    npm i
-   npm i axios react-router-dom
+   npm i axios react-router-dom @mui/material @emotion/react @emotion/styled
    ```
 
 3. **Run locally**
